@@ -20,7 +20,7 @@ What about a world where you only have 2000 **labelled samples** but have anothe
 
 An autoencoder is an unsupervised network architecture whereby the network is trained to reproduce the output, but is forced to do so by *squeezing* the data through a hidden layer with a drastically reduced number of dimensions.  So for example a simple fully connected autoencoder might be 784 input -> 512 hidden -> 20 hidden -> 512 hidden -> 784 output.  Training the network is the same as in the supervised case but you use the input as the label (your x,y training pair is really x,x).  In this way you can view the autoencoder as "domain specific lossy compressor" in that whatever those 20 hidden values are we can use to reconstruct the input (though not perfectly).  The 20 hidden values are referred to as "latent variables" because the hope is that the network *learns* the 20 underlying factors that make up the myriad of ways to handwrite the 0-9 digits.  Such latent variables might be the class (0-9), the slant or boldness of the stroke, etc.  Below you can see how good of a reconstruction you can get with 2, 5, and 20 dimensions (originals are on the left, reconstructions on the right).
 
-![autoencoder reconstruction](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/ae-reconstruction .png)
+![autoencoder reconstruction](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/ae-reconstruction.png)
 
 The quality of the reconstruction with just 2 dimensions is impressive, and with 20 we get a reconstruction so good you probably wouldn't notice if the original and reconstructed versions were swapped.
 
@@ -30,7 +30,7 @@ The naive form of autoencoder described above sometimes apparently has a tendenc
 
 Below are reconstructions with a VAE for 2, 5, and 20 dimensions.  Note that it is not as sharp, perhaps due to the randomization.
 
-![variational autoencoder reconstruction](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/vae-reconstruction .png)
+![variational autoencoder reconstruction](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/vae-reconstruction.png)
 
 ### Semi-Supervised Learning
 
