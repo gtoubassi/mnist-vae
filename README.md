@@ -8,17 +8,17 @@ This repo has a few mnist classifiers (both simple 3 layer full connected and co
 
 ### MNIST accuracy vs training samples
 
-The MNIST dataset is split into training/validation/test samples of 55,000/5,000/10,000.  For the fully connected network which achieves 97.5 on the full dataset, what is the sensitivty to training data size?
+The MNIST dataset is split into training/validation/test samples of 55,000/5,000/10,000.  For the fully connected network which achieves 97.5% on the full dataset, what is the sensitivity to training data size?
 
 ![accuracy vs samples](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/accuracy_vs_samples.png)
 
 Remember that a random guess will give you 10% accuracy.  You can see that 81% is achieved with only 250 samples and 90% with 2000.  You need 27x the data to go from 90% to 97.5% with the simple network.
 
-What about a world where you only have 2000 **labelled samples** but have another 53000 unlabelled samples?  Can we somehow learn something in an unsupervised way from all 55000 digits that might help us to better than our 90% baseline?  This is the goal of **semi-supervised learning**.
+What about a world where you only have 2000 **labeled samples** but have another 53000 unlabeled samples?  Can we somehow learn something in an unsupervised way from all 55000 digits that might help us to better than our 90% baseline?  This is the goal of **semi-supervised learning**.
 
 ### Autoencoders
 
-An autoencoder is an unsupervised network architecture whereby the network is trained to reproduce the output, but is forced to do so by *squeezing* the data through a hidden layer with a drastically reduced number of dimensions.  So for example a simple fully connected autoencoder might be 784 input -> 512 hidden -> 20 hidden -> 512 hidden -> 784 output.  Training the network is the same as in the supervised case but you use the input as the label (your x,y training pair is really x,x).  In this way you can view the autoencoder as "domain specific lossy compressor" in that whatever those 20 hidden values are we can use to reconstruct the input (though not perfectly).  The 20 hidden values are referred to as "latent variables" because the hope is that the network *learns* the 20 underlying factors that make up the myriad of ways to handwrite the 0-9 digits.  Such latent variables might be the class (0-9), the slant or boldness of the stroke, etc.  Below you can see how good of a reconstruction you can get with 2, 5, and 20 dimensions (originals are on the left, reconstructions on the right).
+An autoencoder is an unsupervised network architecture whereby the network is trained to reproduce the input, but is forced to do so by *squeezing* the data through a hidden layer with a drastically reduced number of dimensions.  So for example a simple fully connected autoencoder might be 784 input -> 512 hidden -> 20 hidden -> 512 hidden -> 784 output.  Training the network is the same as in the supervised case but you use the input as the label (your x,y training pair is really x,x).  In this way you can view the autoencoder as a "domain specific lossy compressor" in that whatever those 20 hidden values are we can use them to reconstruct the input (though not perfectly).  The 20 hidden values are referred to as "latent variables" because the hope is that the network *learns* the 20 underlying factors that make up the myriad of ways to handwrite the 0-9 digits.  Such latent variables might be the class (0-9), the slant or boldness of the stroke, etc.  Below you can see how good of a reconstruction you can get with 2, 5, and 20 dimensions (originals are on the left, reconstructions on the right).
 
 ![autoencoder reconstruction](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/ae-reconstruction.png)
 
@@ -34,9 +34,9 @@ Below are reconstructions with a VAE for 2, 5, and 20 dimensions.  Note that it 
 
 ### Semi-Supervised Learning
 
-So what if instead of 55,000 labeled training and 5,0000 validation samples, we only had 2,000 lateled training samples and 53,000 unlabeled samples.  Can we generate a (for example) 20 dimensional latent encoding of MNIST digits learning in an unsupervised way with an autoencoder, and then train on that using 2,000 labeled samples?  Will that latent encoding give us a net better result then the 90% we get with just training on 2,000 labeled images?  To run the test using an autoencoder run ''python mnist_conv_vae.py'', add the ''--vae'' flag to run a VAE.  You will see both autoencoders get a 93.5% accuracy, which recovers about half of the accuracy lost when we went to 2,000 labeled samples.  This is an impressive result and gives some feeling for why researchers and practitioners are excited about the potential to improve training through additional *unlabelled* data.
+So what if instead of 55,000 labeled training samples, we only had 2,000 lateled training samples and 53,000 unlabeled samples.  Can we generate a (for example) 20 dimensional latent encoding of MNIST digits learning in an unsupervised way with an autoencoder, and then train on that using 2,000 labeled samples?  Will that latent encoding give us a net better result then the 90% we get with just training on 2,000 labeled images?  To run the test using an autoencoder run `python mnist_conv_vae.py`, add the `--vae` flag to run a VAE.  You will see both autoencoders get a ~93.5% accuracy, which recovers about half of the accuracy lost when we went to 2,000 labeled samples.  This is an impressive result and gives some feeling for why researchers and practitioners are excited about the potential to improve training through additional *unlabeled* data.
 
-It is not immediately clear to me why the VAE doesn't outperform the autoencoder, in fact nothing in my comically naive exploration leads me to see any value in VAEs over "plain autoencoders", but this is of course my own ignorance (or possible bugs).  If you have any ideas let me know by filing a bug!
+It is not immediately clear to me why the VAE doesn't outperform the autoencoder, in fact nothing in my comically naive exploration leads me to see any value in VAEs over "plain autoencoders", but this is of course my own ignorance (or possible bugs). VAEs seem to dominate the literature so perhaps there is a different set of circumstances where they shine (or again, bugs in my impl may explain all).  If you have any ideas let me know by filing a bug!
 
 
 ### Resources
