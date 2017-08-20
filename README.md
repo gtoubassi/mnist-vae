@@ -4,7 +4,7 @@ This repo has a few mnist classifiers (both simple 3 layer full connected and co
 
 ### MNIST
 
-`mnist_fc.py` and `mnist_conv.py` represent simple MNIST classifiers.  The former is a 3 layer fully connected network with 100 hidden units which achieves ~97.5% accuracy.  The latter latter is a convolutional network with 2 convolutional layers (each with maxpooling), a 1024 unit fully connected hidden layer, and the final 10 unit output layer, achieving ~99.1% accuracy.  The default training regime is to use early stopping when 3 consecutive epochs have passed with no improvement in accuracy when measured on the (5000 sample) validation set.
+`mnist_fc.py` and `mnist_conv.py` represent simple MNIST classifiers.  The former is a 3 layer fully connected network with 100 hidden units which achieves ~97.5% accuracy.  The latter is a convolutional network with 2 convolutional layers (each with maxpooling), a 1024 unit fully connected hidden layer, and the final 10 unit output layer, achieving ~99.1% accuracy.  The default training regime is to use early stopping when 3 consecutive epochs have passed with no improvement in accuracy when measured on the (5000 sample) validation set.
 
 ### MNIST accuracy vs training samples
 
@@ -32,11 +32,19 @@ Below are reconstructions with a VAE for 2, 5, and 20 dimensions.  Note that it 
 
 ![variational autoencoder reconstruction](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/vae-reconstruction.png)
 
+### Visualizing MNIST Digits in 2-D Latent Space
+
+Below is a scatter plot of the 10,000 training samples from MNIST embedded in a 2-D space.  The first plot shows the plain autoencoder version and the second shows the VAE.
+
+![autoencoder plot](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/ae-cluster.png)
+![vae plot](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/vae-cluster.png)
+
+
 ### Semi-Supervised Learning
 
-So what if instead of 55,000 labeled training samples, we only had 2,000 lateled training samples and 53,000 unlabeled samples.  Can we generate a (for example) 20 dimensional latent encoding of MNIST digits learning in an unsupervised way with an autoencoder, and then train on that using 2,000 labeled samples?  Will that latent encoding give us a net better result then the 90% we get with just training on 2,000 labeled images?  To run the test using an autoencoder run `python mnist_conv_vae.py`, add the `--vae` flag to run a VAE.  You will see both autoencoders get a ~93.5% accuracy, which recovers about half of the accuracy lost when we went to 2,000 labeled samples.  This is an impressive result and gives some feeling for why researchers and practitioners are excited about the potential to improve training through additional *unlabeled* data.
+So what if instead of 55,000 labeled training samples, we only had 2,000 lateled training samples and 53,000 unlabeled samples.  Can we generate a (for example) 20 dimensional latent encoding of MNIST digits learned in an unsupervised way with an autoencoder, and then train on that using 2,000 labeled samples?  Will that latent encoding give us a net better result than the 90% we get with just training on 2,000 labeled images?  To run the test using an autoencoder run `python mnist_conv_vae.py`, add the `--vae` flag to run a VAE.  You will see both autoencoders get a ~93.5% accuracy, which recovers about half of the accuracy lost when we went to 2,000 labeled samples.  This is an impressive result and gives some feeling for why researchers and practitioners are excited about the potential to improve training through additional *unlabeled* data.
 
-It is not immediately clear to me why the VAE doesn't outperform the autoencoder, in fact nothing in my comically naive exploration leads me to see any value in VAEs over "plain autoencoders", but this is of course my own ignorance (or possible bugs). VAEs seem to dominate the literature so perhaps there is a different set of circumstances where they shine (or again, bugs in my impl may explain all).  If you have any ideas let me know by filing a bug!
+It is not immediately clear to me why the VAE doesn't outperform the autoencoder, in fact nothing in my comically naive exploration has not clearly demonstrated the value of VAEs over "plain autoencoders", but this is of course my own ignorance (or possible bugs). VAEs seem to dominate the literature so perhaps there is a different set of circumstances where they shine (or again, bugs in my impl may explain all).  If you have any ideas let me know by filing a bug!
 
 
 ### Resources
