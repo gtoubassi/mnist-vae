@@ -48,7 +48,7 @@ It is not immediately clear to me why the VAE doesn't outperform the autoencoder
 
 
 ### Resources
-[Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114) The original D.P. Kingma article introducing the VAE.
+[Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114) The original D.P. Kingma paper introducing the VAE.
 
 
 [Tutorial on Variational Autoencoders](https://arxiv.org/abs/1606.05908) Carl Doersch's oft cited explanation of VAEs.
