@@ -34,7 +34,7 @@ Below are reconstructions with a VAE for 2, 5, and 20 dimensions.  Note that it 
 
 ### Visualizing MNIST Digits in 2-D Latent Space
 
-Below is a scatter plot of the 10,000 training samples from MNIST embedded in a 2-D space.  The first plot shows the plain autoencoder version and the second shows the VAE.
+Below is a scatter plot of the 10,000 training samples from MNIST embedded in a 2-D space.  The first plot shows the plain autoencoder version and the second shows the VAE.  Note that with only 2 dimensions the clusters have severe overlap.  Both encodings have 4's and 9's heavily overlapped, which is reflected in the above reconstructions which shows a 4 being reconstructed as a fuzzy 9.
 
 ![autoencoder plot](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/ae-cluster.png)
 ![vae plot](https://raw.githubusercontent.com/gtoubassi/mnist-vae/master/assets/vae-cluster.png)
