@@ -12,11 +12,12 @@ class Trainer:
     
     best_accuracy = -1000000
     num_backward = 0
+    train_batch_size = min(dataset.train.count, batchsize)
     for epoch in range(100000):
       dataset.train.shuffle()
       start = time.time()
-      for i in range(int(dataset.train.count / batchsize)):
-        network.train_batch(*dataset.train.batch(i, batchsize))
+      for i in range(dataset.train.count // train_batch_size):
+        network.train_batch(*dataset.train.batch(i, train_batch_size))
       accuracy = self.eval(network, dataset.validation, batchsize)
       duration = time.time() - start
       print("Epoch %d Accuracy %f (%.3fs)" % (epoch, accuracy, duration))
@@ -26,15 +27,17 @@ class Trainer:
         num_backward = 0
       else:
         num_backward += 1
-        if num_backward > 2:
+        if num_backward > 5:
           break
     
     network.load(path)
     shutil.rmtree(path)
     return self.eval(network, dataset.test, batchsize)
 
-  def eval(self, network, examples, batchsize=32):
+  def eval(self, network, examples, batchsize):
     accuracy = 0
+    
+    batchsize = min(examples.count, batchsize)
     num_batches = examples.count // batchsize
     for i in range(num_batches):
       accuracy += network.evaluate(*examples.batch(i, batchsize))

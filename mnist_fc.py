@@ -48,6 +48,7 @@ def main():
   parser = argparse.ArgumentParser()
   parser.add_argument("--train-size", help="number of training samples to use (e.g. --train-size 1000).  By default use all")
   parser.add_argument("--validation-size", help="number of validation samples to use (e.g. --validation-size 500).  By default use all")
+  parser.add_argument("--batch-size", type=int, default=32, help="training and eval batch size (default 32).")
   global args
   
   args = parser.parse_args()    
@@ -62,7 +63,7 @@ def main():
 
   network = MNISTFullyConnected()
   trainer = Trainer()
-  accuracy = trainer.train(network, mnist)
+  accuracy = trainer.train(network, mnist, batchsize=args.batch_size)
   print("Final for Accuracy %f" % accuracy)
 
 if __name__ == "__main__":
