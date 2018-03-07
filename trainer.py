@@ -27,7 +27,7 @@ class Trainer:
         num_backward = 0
       else:
         num_backward += 1
-        if num_backward > 5:
+        if num_backward > 2:
           break
     
     network.load(path)

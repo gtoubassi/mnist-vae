@@ -24,6 +24,7 @@ class MNISTFullyConnected:
       self.loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_logits, labels=self.y_))
 
       self.train_step = tf.train.AdamOptimizer().minimize(self.loss)
+      #self.train_step = tf.train.GradientDescentOptimizer(.005).minimize(self.loss)
 
       correct_prediction = tf.equal(tf.argmax(y_logits,1), tf.argmax(self.y_,1))
       self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
